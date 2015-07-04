@@ -1,0 +1,659 @@
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <iostream>
+#include<stdlib.h>
+int fofplane(int m)
+{
+    int fx,n;
+    n=m/2;
+    if (n>=0)    fx=1000;
+    if (n>=500)  fx=900;
+    if (n>=1000) fx=800;
+    if (n>=1500) fx=700;
+    if (n>=2000) fx=600;
+    if (n>=2500) fx=500;
+    if (n>=3000) fx=400;
+    if (n>=3500) fx=300;
+    if (n>=4000) fx=200;
+   return fx;
+}
+int main()
+{   char scorestr[10]="0";
+     int i,p=1,frequencyofshot=1,j,d=1,d2=1,score=0,feplaneshot=1,o=1,k=1,youlive=3,g=1,bosst,bossi=1,bossm[101]={1},fuckpower,*power,score2=0,tiaoshi2=0;
+     int bossn[101]={1};
+     int gift,numofgift;
+     int posofplane,tforplane=1,destroyx,destroyy,destroy=0,destroyxadd,destroyyadd,destroyadd=0,destroyyoux,destroyyouy,destroyyou=0;
+     float x,y;
+     float planex[51]={0};
+    float planey[51]={0};
+    int planeis[51]={0},planelive[51]={0};
+    int numofplane=1;
+    float shotx[105]={0};
+    float shoty[105]={0};
+    float shotsx[105]={0};
+    int shotis[105]={0};
+    float eplaneshotx[501]={0};
+    float eplaneshoty[501]={0};
+    float eplaneshotsx[501]={0};
+    int eplaneshotis[501]={0};
+    float bossx[101]={0};
+    float bossy[101]={0};
+    int bossis[101]={0};
+    int bosslive[101]={0};
+    float giftx[11]={0};
+    float gifty[11]={0};
+    int giftis[11]={0};
+    power=&fuckpower;
+    *power=1;
+    sf::RenderWindow window(sf::VideoMode(480,800), "SFML works!");
+
+    sf::Texture formap;
+    if (!formap.loadFromFile("background.png",sf::IntRect(0,0,480,800)))
+        return EXIT_FAILURE;
+    sf::Sprite map1(formap);
+
+    sf::Texture forplane;
+    if (!forplane.loadFromFile("shoot.png",sf::IntRect(0,100,103,133)))
+        return EXIT_FAILURE;
+    sf::Sprite plane(forplane);
+
+    sf::Texture forlive;
+    if (!forlive.loadFromFile("live.png",sf::IntRect(38,40,24,22)))
+        return EXIT_FAILURE;
+    sf::Sprite live(forlive);
+
+    sf::Texture forpowerup;
+    if (!forpowerup.loadFromFile("shoot.png",sf::IntRect(266,398,62,88)))
+        return EXIT_FAILURE;
+    sf::Sprite powerup(forpowerup);
+
+    sf::Texture forplane2;
+    if (!forplane2.loadFromFile("shoot.png",sf::IntRect(0,0,68,100)))
+        return EXIT_FAILURE;
+    sf::Sprite planef(forplane2);
+    plane.setPosition(sf::Vector2f(200, 600));x=200;y=600;
+
+    sf::Texture destroy1;
+    if (!destroy1.loadFromFile("shoot.png",sf::IntRect(532,650,68,100)))
+        return EXIT_FAILURE;
+    sf::Sprite spdestroy1(destroy1);
+
+    sf::Texture destroy2;
+    if (!destroy2.loadFromFile("shoot.png",sf::IntRect(605,650,68,100)))
+        return EXIT_FAILURE;
+    sf::Sprite spdestroy2(destroy2);
+
+    sf::Texture destroy3;
+    if (!destroy3.loadFromFile("shoot.png",sf::IntRect(670,650,68,100)))
+        return EXIT_FAILURE;
+    sf::Sprite spdestroy3(destroy3);
+
+    sf::Texture destroy4;
+    if (!destroy4.loadFromFile("shoot.png",sf::IntRect(740,650,68,100)))
+        return EXIT_FAILURE;
+    sf::Sprite spdestroy4(destroy4);
+
+    sf::Texture you1;
+    if (!you1.loadFromFile("shoot.png",sf::IntRect(166,236,103,120)))
+        return EXIT_FAILURE;
+    sf::Sprite dyou1(you1);
+
+    sf::Texture you2;
+    if (!you2.loadFromFile("shoot.png",sf::IntRect(330,626,103,120)))
+        return EXIT_FAILURE;
+    sf::Sprite dyou2(you2);
+
+    sf::Texture you3;
+    if (!you3.loadFromFile("shoot.png",sf::IntRect(330,500,103,120)))
+        return EXIT_FAILURE;
+    sf::Sprite dyou3(you3);
+
+    sf::Texture boss;
+    if (!boss.loadFromFile("shoot.png",sf::IntRect(336,750,168,251)))
+        return EXIT_FAILURE;
+    sf::Sprite boss1(boss);
+
+    sf::SoundBuffer bgm;
+    if (!bgm.loadFromFile("bgm.wav"))
+        return -1;
+    sf::Sound bgm1;
+    bgm1.setBuffer(bgm);
+    bgm1.play();
+
+    sf::SoundBuffer enemydown;
+    if (!enemydown.loadFromFile("enemydown.ogg"))
+        return -1;
+    sf::Sound enemydown1;
+    enemydown1.setBuffer(enemydown);
+
+    sf::SoundBuffer youdown;
+    if (!youdown.loadFromFile("youdown.ogg"))
+        return -1;
+    sf::Sound youdown1;
+    youdown1.setBuffer(youdown);
+
+    sf::Texture forshot;
+    if (!forshot.loadFromFile("shoot.png",sf::IntRect(69,78,10,22)))
+        return EXIT_FAILURE;
+    sf::Sprite shotshape(forshot);
+
+    sf::Texture forshot2;
+    if (!forshot2.loadFromFile("shoot.png",sf::IntRect(1002,990,10,22)))
+        return EXIT_FAILURE;
+    sf::Sprite shot2shape(forshot2);
+
+    sf::Font font;
+    if (!font.loadFromFile("score.ttf"))
+    return EXIT_FAILURE;
+
+    sf::Text showscore;
+    showscore.setFont(font);
+    showscore.setString(scorestr);
+    showscore.setCharacterSize(40);
+    showscore.setColor(sf::Color::White);
+
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Score");
+    text.setCharacterSize(40);
+    text.setColor(sf::Color::White);
+
+    sf::Text die;
+    die.setFont(font);
+    die.setCharacterSize(22);
+    die.setString("You have been destroyed press Tab to continue");
+    die.setColor(sf::Color::White);
+
+    sf::Text yourscoreis;
+    yourscoreis.setFont(font);
+    yourscoreis.setCharacterSize(22);
+    yourscoreis.setString("Your Score Is");
+    yourscoreis.setColor(sf::Color::Black);
+
+    sf::Text gg;
+    gg.setFont(font);
+    gg.setCharacterSize(40);
+    gg.setString("GAME  OVER");
+    gg.setColor(sf::Color::Black);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        window.draw(map1);
+        if (youlive>0)
+        {
+        if (destroyyou==0)
+        {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&x<380)
+            {
+                plane.move(.5,0);
+                x+=0.5;
+            }
+         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&x>0)
+            {
+                plane.move(-.5,0);
+                x-=0.5;
+            }
+         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)&&y>0)
+            {
+                plane.move(0,-.5);
+                y-=0.5;
+            }
+           if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&&y<660)
+            {
+                plane.move(0,.5);
+                y+=0.5;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                frequencyofshot++;
+                if (frequencyofshot>=200/fuckpower)
+                {
+                p++;
+                if (shotis[p]==0)  {if (fuckpower==1)
+                                       {shotis[p]=1;
+                                       shotx[p]=x+48;
+                                       shoty[p]=y;
+                                       shotsx[p]=0;
+                                       }
+                                    if (fuckpower==2)
+                                    {
+                                       shotis[p]=1;
+                                       shotx[p]=x+24;
+                                       shoty[p]=y;
+                                       shotsx[p]=0;
+                                       shotis[p+1]=1;
+                                       shotx[p+1]=x+72;
+                                       shoty[p+1]=y;
+                                       shotsx[p+1]=0;
+                                    }
+                                   if (fuckpower==3)
+                                    {
+                                       shotis[p]=1;
+                                       shotx[p]=x+48;
+                                       shoty[p]=y;
+                                       shotsx[p]=0;
+
+                                       shotis[p+1]=1;
+                                       shotx[p+1]=x+48;
+                                       shoty[p+1]=y;
+                                       shotsx[p+1]=1;
+
+                                       shotis[p+2]=1;
+                                       shotx[p+2]=x+48;
+                                       shoty[p+2]=y;
+                                       shotsx[p+2]=-1;
+                                    }
+                                    if (fuckpower==4)
+                                    {
+                                       shotis[p]=1;
+                                       shotx[p]=x+48;
+                                       shoty[p]=y;
+                                       shotsx[p]=0.3;
+
+                                       shotis[p+1]=1;
+                                       shotx[p+1]=x+48;
+                                       shoty[p+1]=y;
+                                       shotsx[p+1]=1;
+
+                                       shotis[p+2]=1;
+                                       shotx[p+2]=x+48;
+                                       shoty[p+2]=y;
+                                       shotsx[p+2]=-1;
+
+                                       shotis[p+3]=1;
+                                       shotx[p+3]=x+48;
+                                       shoty[p+3]=y;
+                                       shotsx[p+3]=-0.3;
+                                    }
+                                     if (fuckpower==5)
+                                    {
+                                       shotis[p]=1;
+                                       shotx[p]=x+48;
+                                       shoty[p]=y;
+                                       shotsx[p]=0.4;
+
+                                       shotis[p+1]=1;
+                                       shotx[p+1]=x+48;
+                                       shoty[p+1]=y;
+                                       shotsx[p+1]=1;
+
+                                       shotis[p+2]=1;
+                                       shotx[p+2]=x+48;
+                                       shoty[p+2]=y;
+                                       shotsx[p+2]=-1;
+
+                                       shotis[p+3]=1;
+                                       shotx[p+3]=x+48;
+                                       shoty[p+3]=y;
+                                       shotsx[p+3]=-0.4;
+
+                                       shotis[p+4]=1;
+                                       shotx[p+4]=x+48;
+                                       shoty[p+4]=y;
+                                       shotsx[p+4]=0;
+
+                                    }
+
+                                   }
+                if (p>=96) p=1;
+                }
+                if (frequencyofshot>=200/fuckpower) frequencyofshot=1;
+            }
+
+                window.draw(plane);
+        }
+        for (i=1;i<=100;i++)
+                {
+                    if (shotis[i]==1)
+                    {
+                            shoty[i]-=0.7;
+                            shotx[i]+=shotsx[i]*0.3;
+                            if (shoty[i]<0) shotis[i]=0;
+                            else
+                                {
+                                    shotshape.setPosition(shotx[i],shoty[i]);
+                                    window.draw(shotshape);
+                                }
+                    }
+                }
+        if (score%100==0&&score/100==bossi)
+        {
+          bossis[bossi]=1;
+          bossx[bossi]=rand()%380;
+          bossy[bossi]=-168;
+          bossn[bossi]=1;
+          bosslive[bossi]=80+score/20;
+          bossi++;
+        }
+        for (i=1;i<=50;i++)
+        {
+            if (bossis[i]==1)
+            {
+            bossx[i]=bossx[i]+0.05*bossn[i];
+            bossy[i]+=0.05*bossm[i];
+            if (bossy[i]>=90) bossm[i]=-1;
+            if (bossy[i]<=0) bossm[i]=1;
+            if (bossx[i]>=330) bossn[i]=-1;
+            if (bossx[i]<=0) bossn[i]=1;
+            boss1.setPosition(bossx[i],bossy[i]);
+            window.draw(boss1);
+            }
+        }
+        for (i=1;i<=50;i++)
+        {
+            if (bossis[i]==1)
+            {
+                if (bossy[i]>9.85&&bossy[i]<10&&eplaneshotis[o]==0)
+                {
+                  eplaneshotis[o]=1;
+                  eplaneshotx[o]=bossx[i]+0;
+                  eplaneshoty[o]=bossy[i]+0;
+                  eplaneshotsx[o]=-0.5;
+                  o++;
+                  if (o==500) o=1;
+                  eplaneshotis[o]=1;
+                  eplaneshotx[o]=bossx[i]+0;
+                  eplaneshoty[o]=bossy[i]+0;
+                  eplaneshotsx[o]=0;
+                  o++;
+                  if (o==500) o=1;
+
+                  eplaneshotis[o]=1;
+                  eplaneshotx[o]=bossx[i]+0;
+                  eplaneshoty[o]=bossy[i]+0;
+                  eplaneshotsx[o]=0.5;
+                  o++;
+                  if (o==500) o=1;
+
+                  eplaneshotis[o]=1;
+                  eplaneshotx[o]=bossx[i]+168;
+                  eplaneshoty[o]=bossy[i]+0;
+                  eplaneshotsx[o]=-0.5;
+                  o++;
+                  if (o==500) o=1;
+                  eplaneshotis[o]=1;
+                  eplaneshotx[o]=bossx[i]+168;
+                  eplaneshoty[o]=bossy[i]+0;
+                  eplaneshotsx[o]=0;
+                  o++;
+                  if (o==500) o=1;
+
+                  eplaneshotis[o]=1;
+                  eplaneshotx[o]=bossx[i]+168;
+                  eplaneshoty[o]=bossy[i]+0;
+                  eplaneshotsx[o]=0.5;
+                  o++;
+                  if (o==500) o=1;
+                }
+            }
+        }
+        feplaneshot++;
+        if (feplaneshot==fofplane(score))
+        {
+            if (eplaneshotis[o]==0)
+                                {
+                                    for (i=1;i<=100;i++)
+                                    {
+                                        if (planeis[i]==1)
+                                        {
+                                            k++;
+                                            if (k==3)
+                                            {
+                                            eplaneshotis[o]=1;
+                                            eplaneshotx[o]=planex[i]+32;
+                                            eplaneshoty[o]=planey[i]+100;
+                                            eplaneshotsx[o]=0;
+                                            o++;
+                                            k=1;
+                                            }
+                                        }
+                                    }
+
+                                }
+            if (o>=500) o=1;
+            feplaneshot=1;
+        }
+        for (i=1;i<=500;i++)
+                {
+                    if (eplaneshotis[i]==1)
+                    {
+                            eplaneshoty[i]+=0.4;
+                            eplaneshotx[i]+=eplaneshotsx[i]*0.5;
+                            if (eplaneshoty[i]>800) eplaneshotis[i]=0;
+                            else
+                                {
+                                    shot2shape.setPosition(eplaneshotx[i],eplaneshoty[i]);
+                                    window.draw(shot2shape);
+
+                                }
+                    }
+                }
+
+        tforplane++;
+        if (tforplane==fofplane(score)) {
+                                numofplane++;
+                                if (planeis[numofplane]==0) {
+                                                                planeis[numofplane]=1;
+                                                                planey[numofplane]=0;
+                                                                planex[numofplane]=rand()%380;
+                                                                planelive[numofplane]=3+score/200;
+                                                              }
+                                if (numofplane==50) numofplane=1;
+                                tforplane=1;
+                            }
+        for (j=1;j<=50;j++)
+        {
+            if (planeis[j]==1)
+            {
+            planey[j]+=0.2;
+            if (planey[j]>800) planeis[j]=0;
+            else
+            {
+                planef.setPosition(planex[j],planey[j]);
+                window.draw(planef);
+            }
+            }
+        }
+        for (i=1;i<=100;i++)
+            for (j=1;j<=100;j++)
+            {
+                if (bossis[i]==1&&shotis[j]==1&bossy[i]<shoty[j]&&shoty[j]<bossy[i]+251&&bossx[i]<shotx[j]&&shotx[j]<bossx[i]+168)
+                {
+                    bosslive[i]--;
+                    shotis[j]=0;
+                    if (bosslive[i]==0)
+                        {
+                             bossis[i]=0;
+                             score2+=100;
+                             {
+                                 numofgift++;
+                                if (giftis[numofgift]==0) {
+                                                                giftis[numofgift]=1;
+                                                                gifty[numofgift]=bossy[i]+80;
+                                                                giftx[numofgift]=bossx[i]+50;
+                                                          }
+                                if (numofgift==10) numofgift=1;
+                             }
+                             sprintf(scorestr,"%d",score+score2);
+                             showscore.setString(scorestr);
+
+                        }
+                }
+            }
+        for (i=1;i<=10;i++)
+            if (giftis[i]==1)
+            {
+            gifty[i]+=0.2;
+            if (gifty[i]>800) giftis[i]=0;
+            else
+            {
+                powerup.setPosition(giftx[i],gifty[i]);
+                window.draw(powerup);
+            }
+            }
+        for (i=1;i<=50;i++)
+            for (j=1;j<=100;j++)
+            {
+                if (planeis[i]==1&&shotis[j]==1&&planey[i]<shoty[j]&&shoty[j]<planey[i]+100&&planex[i]<shotx[j]&&shotx[j]<planex[i]+68)
+                {
+                    planelive[i]--;
+                    shotis[j]=0;
+                    if (planelive[i]==0)
+                        {
+                             planeis[i]=0;
+                             score+=10;
+                             sprintf(scorestr,"%d",score+score2);
+                             showscore.setString(scorestr);
+                             gift=rand()%100;
+                             if (gift<=10)
+                             {
+                                 numofgift++;
+                                if (giftis[numofgift]==0) {
+                                                                giftis[numofgift]=1;
+                                                                gifty[numofgift]=planey[i]+20;
+                                                                giftx[numofgift]=planex[i]+20;
+                                                          }
+                                if (numofgift==10) numofgift=1;
+                             }
+                             if (destroy==0)
+                             {
+                             destroyx=planex[i];
+                             destroyy=planey[i];
+                             destroy=1;
+                             }
+                             else
+                             {
+                                 destroyxadd=planex[i];
+                                 destroyyadd=planey[i];
+                                 destroyadd=1;
+                             }
+                        }
+                }
+            }
+        for (i=1;i<=10;i++)
+            if (giftis[i]==1&&giftx[i]<=x+83&&giftx[i]+42>=x&&gifty[i]+68>=y&&gifty[i]<=y+113)
+        {
+            giftis[i]=0;
+            if (*power==4) *power=5;
+            if (*power==3) *power=4;
+            if (*power==2) *power=3;
+            if (*power==1) *power=2;
+        }
+        for (i=1;i<=50;i++)
+        {
+            if (planeis[i]==1&&planex[i]+18>x&&x+53>planex[i]&&planey[i]+70>y&&y+103>planey[i]&&destroyyou==0)
+            {
+                youlive--;
+                planeis[i]=0;
+                if (destroy==0)
+                             {
+                             destroyx=planex[i];
+                             destroyy=planey[i];
+                             destroy=1;
+                             }
+                             else
+                             {
+                                 destroyxadd=planex[i];
+                                 destroyyadd=planey[i];
+                                 destroyadd=1;
+                             }
+                destroyyou=1;
+                destroyyoux=x;
+                destroyyouy=y;
+
+            }
+        }
+         for (i=1;i<=500;i++)
+        {
+            if (eplaneshotis[i]==1&&eplaneshotx[i]>x+31&&eplaneshotx[i]<x+71&&eplaneshoty[i]>y+37&&eplaneshoty[i]<y+97&&destroyyou==0)
+            {
+                youlive--;
+                eplaneshotis[i]=0;
+                destroyyou=1;
+                destroyyoux=x;
+                destroyyouy=y;
+
+            }
+        }
+        if (destroyyou==1)
+        {
+            g++;
+            if (g<=200){dyou1.setPosition(destroyyoux,destroyyouy);window.draw(dyou1); youdown1.play();  }
+            if (g>200&&g<=400) {dyou2.setPosition(destroyyoux,destroyyouy);window.draw(dyou2);}
+            if (g>400&&g<600) {dyou3.setPosition(destroyyoux,destroyyouy);window.draw(dyou3);}
+            if (g>600)
+            {
+            die.setPosition(15,380);
+            window.draw(die);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+            {
+               if (*power>=2){
+                                numofgift++;
+                                if (giftis[numofgift]==0) {
+                                                                giftis[numofgift]=1;
+                                                                gifty[numofgift]=y-400;
+                                                                giftx[numofgift]=x+20;
+                                                          }
+                                if (numofgift==10) numofgift=1;
+                             }
+                if (*power>=4){
+                                numofgift++;
+                                if (giftis[numofgift]==0) {
+                                                                giftis[numofgift]=1;
+                                                                gifty[numofgift]=y-400;
+                                                                giftx[numofgift]=x+40;
+                                                          }
+                                if (numofgift==10) numofgift=1;
+                               }
+            plane.setPosition(sf::Vector2f(200, 600));x=200;y=600;
+            *power=1;
+            destroyyou=0;
+            g=1;
+            }
+            }
+        }
+        if (destroy==1)
+        {
+        d++;
+        if (d<=200){spdestroy1.setPosition(destroyx,destroyy);window.draw(spdestroy1);   enemydown1.play();}
+        if (d>200&&d<=400) {spdestroy2.setPosition(destroyx,destroyy);window.draw(spdestroy2);}
+        if (d>400&&d<600) {spdestroy3.setPosition(destroyx,destroyy);window.draw(spdestroy3);}
+        if (d>=600&&d<800) {spdestroy4.setPosition(destroyx,destroyy);window.draw(spdestroy4);}
+        if (d==800) {d=1;destroy=0;}
+         }
+         if (destroyadd==1)
+            {
+        d2++;
+        if (d2<=200){spdestroy1.setPosition(destroyxadd,destroyyadd);window.draw(spdestroy1);   enemydown1.play();}
+        if (d2>200&&d2<=400) {spdestroy2.setPosition(destroyxadd,destroyyadd);window.draw(spdestroy2);}
+        if (d2>400&&d2<600) {spdestroy3.setPosition(destroyxadd,destroyyadd);window.draw(spdestroy3);}
+        if (d2>=600&&d2<800) {spdestroy4.setPosition(destroyxadd,destroyyadd);window.draw(spdestroy4);}
+        if (d2==800) {d2=1;destroyadd=0;}
+         }
+         text.setPosition(20,20);
+         showscore.setPosition(50,60);
+         window.draw(text);
+         window.draw(showscore);
+         if (youlive==1) {live.setPosition(10,750);window.draw(live);}
+         if (youlive==2) {live.setPosition(10,750);window.draw(live);live.setPosition(30,750);window.draw(live);}
+         if (youlive==3) {live.setPosition(10,750);window.draw(live);live.setPosition(30,750);window.draw(live);live.setPosition(50,750);window.draw(live);}
+        }
+        else {
+                gg.setPosition(145,320);
+                window.draw(gg);
+                yourscoreis.setPosition(145,370);
+                window.draw(yourscoreis);
+                showscore.setPosition(305,360);
+                window.draw(showscore);
+                }
+
+    window.display();
+    }
+    return 0;
+}

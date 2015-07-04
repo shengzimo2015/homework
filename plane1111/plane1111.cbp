@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="plane1111" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/plane1111" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../../SFML-2.3/include" />
+				</Compiler>
+				<Linker>
+					<Add library="..\..\SFML-2.3\lib\libsfml-graphics-d.a" />
+					<Add library="..\..\SFML-2.3\lib\libsfml-window-d.a" />
+					<Add library="..\..\SFML-2.3\lib\libsfml-system-d.a" />
+					<Add library="..\..\SFML-2.3\lib\libsfml-audio-d.a" />
+					<Add directory="../../SFML-2.3/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/plane1111" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="../../SFML-2.3/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="..\..\SFML-2.3\lib\libsfml-graphics.a" />
+					<Add library="..\..\SFML-2.3\lib\libsfml-window.a" />
+					<Add library="..\..\SFML-2.3\lib\libsfml-system.a" />
+					<Add library="..\..\SFML-2.3\lib\libsfml-audio.a" />
+					<Add directory="../../SFML-2.3/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../123/bossmove.h" />
+		<Unit filename="../123/collision.h" />
+		<Unit filename="../123/destroyandreset.h" />
+		<Unit filename="../123/eplanemove.h" />
+		<Unit filename="../123/eshotmove.h" />
+		<Unit filename="../123/main.cpp" />
+		<Unit filename="../123/planemove.h" />
+		<Unit filename="../123/shotmove.h" />
+		<Unit filename="../123/tands.h" />
+		<Unit filename="../123/var.h" />
+		<Unit filename="fofplane.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
